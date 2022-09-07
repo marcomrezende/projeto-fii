@@ -42,7 +42,7 @@ class AtivosDividendos(ModelBase):
         max_length=8
     )
     dividendo = models.DecimalField(
-        max_digits=3,
+        max_digits=6,
         decimal_places=2
     )
 
@@ -51,3 +51,14 @@ class AtivosDividendos(ModelBase):
         verbose_name = _('AtivosDividendos')
 
 
+class Carteira(ModelBase):
+    ticket = models.CharField(
+        max_length=8
+    )
+    quantidade = models.IntegerField(
+        null=False
+    )
+
+    class Meta:
+        db_table = 'carteira'
+        verbose_name = _('Carteira')

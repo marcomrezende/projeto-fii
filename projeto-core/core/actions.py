@@ -19,9 +19,11 @@ class AtivosDividendosAction:
         tbody = table.find('tbody')
         rows = tbody.findAll('tr')
         for row in rows:
-            models.AtivosDividendos.objects.update_or_create(
-                ticket=row.find('a').get_text(),
-                defaults=dict(
-                    dividendo=float(row.findAll('td')[1].get_text())
+            if len(row.findAll('td')[1].get_text().strip()) < 7:
+                dividendo = row.findAll('td')[1].get_text().strip().replace(',', '.')
+                models.AtivosDividendos.objects.update_or_create(
+                    ticket=row.find('a').get_text().strip(),
+                    defaults=dict(
+                        dividendo=float(dividendo)
+                    )
                 )
-            )
